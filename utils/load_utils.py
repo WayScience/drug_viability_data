@@ -176,6 +176,7 @@ def load_depmap(
 
         depmap_return_packet.append(pd.read_csv(depmap_gene_file, sep="\t"))
 
+    # Return a pandas dataframe and not a list if asking for only one item
     if len(depmap_return_packet) == 1:
         depmap_return_packet = depmap_return_packet[0]
 
@@ -286,6 +287,7 @@ def load_prism(
 
         prism_return_packet.append(pd.read_csv(prism_treatment_filename))
 
+    # Return a pandas dataframe and not a list if asking for only one item
     if len(prism_return_packet) == 1:
         prism_return_packet = prism_return_packet[0]
 
@@ -379,6 +381,7 @@ def load_nci60(
             )
         )
 
+    # Return a pandas dataframe and not a list if asking for only one item
     if len(nci_60_return_packet) == 1:
         nci_60_return_packet = nci_60_return_packet[0]
 
