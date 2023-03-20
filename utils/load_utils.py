@@ -150,18 +150,21 @@ def load_depmap(
     depmap_return_packet = []
     depmap_return_packet.append(pd.read_csv(depmap_file))
 
+    # Append cell info dataframe if specified
     if load_cell_info:
         depmap_cell_filename = RESOURCE_FILENAMES["depmap"]["celllines"]
         depmap_cell_file = pathlib.Path(depmap_dir, depmap_cell_filename)
 
         depmap_cell_df = pd.read_csv(depmap_cell_file)
 
+        # Clean the CCLE column to facilitate dataset alignment
         depmap_cell_df = process_tissue_ccle_column(
             input_df=depmap_cell_df,
             recode_col_name="CCLE_Name",
             nan_col_to_fill="cell_line_name",
         )
 
+        # Clean entries with missing tissue, according to hand curated info
         depmap_cell_df = process_missing_tissues(
             input_df=depmap_cell_df,
             recode_col_name="cell_line_name",
@@ -170,6 +173,7 @@ def load_depmap(
 
         depmap_return_packet.append(depmap_cell_df)
 
+    # Append gene info dataframe if specified
     if load_gene_info:
         depmap_gene_filename = RESOURCE_FILENAMES["depmap"]["genes"]
         depmap_gene_file = pathlib.Path(depmap_dir, depmap_gene_filename)
