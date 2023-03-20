@@ -9,9 +9,9 @@ import pathlib
 
 def download_figshare(
     figshare_id: str,
-    output_file: str,
+    output_file: pathlib.Path,
     figshare_url: str = "https://ndownloader.figshare.com/files/",
-):
+) -> pathlib.Path:
     """
     Download the provided figshare resource
 
@@ -37,7 +37,7 @@ def download_depmap_bucket(
     output_dir: pathlib.Path,
     bucket: str = "depmap-external-downloads",
     resource: str = "pharmacological_profiling",
-):
+) -> pathlib.Path:
     """
     Download a legacy depmap file not stored on figshare
 
@@ -76,7 +76,7 @@ def download_nci60(
     modification_date: str = "1672801037000",
     api: str = "v2",
     extract_zip: bool = False,
-):
+) -> pathlib.Path:
     """
     Download the given nci-60 resource
 
