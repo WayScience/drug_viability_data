@@ -67,8 +67,8 @@ def load_ccle(
         The CCLE viability information per cell line : pandas.DataFrame
     """
     # Only get cells works if process_tissues=True
-    if only_get_cells:
-        assert process_tissues, "process_tissues must be True if only_get_cells is True"
+    if only_get_cells and not process_tissues:
+        raise Exception("process_tissues must be True if only_get_cells is True")
 
     # Create path to CCLE data
     ccle_dir = pathlib.Path(top_dir, data_dir)
@@ -174,7 +174,7 @@ def load_depmap(
     if len(depmap_return_packet) == 1:
         depmap_return_packet = depmap_return_packet[0]
 
-    # Return only targetted cell line info
+    # Return only targeted cell line info
     if only_get_cells:
         cell_line_cols = [
             "DepMap_ID",
@@ -284,7 +284,7 @@ def load_prism(
     if len(prism_return_packet) == 1:
         prism_return_packet = prism_return_packet[0]
 
-    # Return only targetted cell line info
+    # Return only targeted cell line info
     if only_get_cells:
         # Remove controls and cell lines that failed STR
         prism_cell_df = prism_cell_df.loc[

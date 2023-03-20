@@ -79,7 +79,7 @@ def download_nci60(
     modification_date: str, default "1672801037000"
         the identifier indicating last modification time for version control
     api: str, default = "v2"
-        the version of the API used to dowload the file
+        the version of the API used to download the file
     extract_zip, bool, default = False
         whether or not to extract the zip file
     """
@@ -89,4 +89,4 @@ def download_nci60(
 
     if extract_zip:
         with ZipFile(output_file) as z:
-            z.extractall(path=output_file.parents[0])
+            z.extractall(path=output_file.parent)
