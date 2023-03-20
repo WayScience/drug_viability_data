@@ -2,13 +2,16 @@
 Data processing utils
 """
 
+import pandas as pd
+from typing import Dict
+
 
 def process_tissue_ccle_column(
-    input_df,
-    recode_col_name="CCLE Cell Line Name",
-    nan_col_to_fill="cell_line_name",
-    missing_tissue_dict={},
-):
+    input_df: pd.DataFrame,
+    recode_col_name: str = "CCLE Cell Line Name",
+    nan_col_to_fill: str = "cell_line_name",
+    missing_tissue_dict: Dict = {},
+) -> pd.DataFrame:
     """
     Split a cell line id column into tissue and cell line name, thus cleaning
 
@@ -53,8 +56,10 @@ def process_tissue_ccle_column(
 
 
 def process_missing_tissues(
-    input_df, recode_col_name="CCLE Cell Line Name", missing_tissue_dict={}
-):
+    input_df: pd.DataFrame,
+    recode_col_name: str = "CCLE Cell Line Name",
+    missing_tissue_dict: Dict = {},
+) -> pd.DataFrame:
     """
     Fill in missing tissue information
 
