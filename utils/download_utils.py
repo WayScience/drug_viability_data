@@ -1,10 +1,16 @@
-import pathlib
+"""
+Functions to facilitate downloading of specific publicly-available resources
+"""
+
 import urllib.request
 from zipfile import ZipFile
+import pathlib
 
 
 def download_figshare(
-    figshare_id, output_file, figshare_url="https://ndownloader.figshare.com/files/"
+    figshare_id: str,
+    output_file: str,
+    figshare_url: str = "https://ndownloader.figshare.com/files/",
 ):
     """
     Download the provided figshare resource
@@ -17,15 +23,20 @@ def download_figshare(
         the location and file name of where to save the downloaded data
     figshare_url: str, default "https://ndownloader.figshare.com/files/"
         the location of where the figshare id is stored
+
+    Returns:
+    --------
+        The output file name
     """
     urllib.request.urlretrieve(f"{figshare_url}/{figshare_id}", output_file)
+    return output_file
 
 
 def download_depmap_bucket(
-    file_name,
-    output_dir,
-    bucket="depmap-external-downloads",
-    resource="pharmacological_profiling",
+    file_name: str,
+    output_dir: pathlib.Path,
+    bucket: str = "depmap-external-downloads",
+    resource: str = "pharmacological_profiling",
 ):
     """
     Download a legacy depmap file not stored on figshare
@@ -40,6 +51,10 @@ def download_depmap_bucket(
         the name of the bucket where the DepMap data are stored
     resource: str, default "pharmacological_profiling"
         the category of DepMap resource
+
+    Returns:
+    --------
+        The output file name
     """
 
     # Build the url to retrieve
@@ -47,19 +62,20 @@ def download_depmap_bucket(
     file_url = f"?file_name=ccle_legacy_data%2F{resource}%2F{file_name}&bucket={bucket}"
 
     download_url = f"{base_url}{file_url}"
-
-    urllib.request.urlretrieve(download_url, pathlib.Path(output_dir, file_name))
+    output_file = pathlib.Path(output_dir, file_name)
+    urllib.request.urlretrieve(download_url, output_file)
+    return output_file
 
 
 def download_nci60(
-    output_file,
-    base_url,
-    attachment_id,
-    attachment_name,
-    version="6",
-    modification_date=1672801037000,
-    api="v2",
-    extract_zip=False,
+    output_file: pathlib.Path,
+    base_url: str,
+    attachment_id: str,
+    attachment_name: str,
+    version: str = "6",
+    modification_date: str = "1672801037000",
+    api: str = "v2",
+    extract_zip: bool = False,
 ):
     """
     Download the given nci-60 resource
@@ -82,6 +98,11 @@ def download_nci60(
         the version of the API used to download the file
     extract_zip, bool, default = False
         whether or not to extract the zip file
+
+    Returns:
+    --------
+        The output file name
+
     """
     request_string = f"{base_url}/{attachment_id}/{attachment_name}?version={version}&modificationDate={modification_date}&api={api}"
 
@@ -90,3 +111,5 @@ def download_nci60(
     if extract_zip:
         with ZipFile(output_file) as z:
             z.extractall(path=output_file.parent)
+
+    return output_file
