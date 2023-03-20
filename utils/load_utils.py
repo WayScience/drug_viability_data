@@ -5,11 +5,13 @@ Loading data helper functions
 import pathlib
 import pandas as pd
 
+from typing import List
+
 from .data_utils import process_tissue_ccle_column, process_missing_tissues
 
 # Set constants
 # Note the dictionary key is both the dataset and also the directory
-FILENAMES = {
+RESOURCE_FILENAMES = {
     "ccle": {"viability": "CCLE_NP24.2009_Drug_data_2015.02.24.csv"},
     "depmap": {
         "viability": "CRISPRGeneDependency.csv",
@@ -46,8 +48,11 @@ DEPMAP_MISSING_TISSUE_NAMES = {
 
 
 def load_ccle(
-    top_dir, data_dir="ccle/data", process_tissues=False, only_get_cells=False
-):
+    top_dir: str,
+    data_dir: str = "ccle/data",
+    process_tissues: bool = False,
+    only_get_cells: bool = False,
+) -> pd.DataFrame:
     """
     Load Cancer Cell Line Encyclopedia (CCLE) viability data
 
@@ -72,7 +77,7 @@ def load_ccle(
 
     # Create path to CCLE data
     ccle_dir = pathlib.Path(top_dir, data_dir)
-    ccle_filename = FILENAMES["ccle"]["viability"]
+    ccle_filename = RESOURCE_FILENAMES["ccle"]["viability"]
 
     ccle_file = pathlib.Path(ccle_dir, ccle_filename)
 
@@ -102,12 +107,12 @@ def load_ccle(
 
 
 def load_depmap(
-    top_dir,
-    data_dir="depmap/data",
-    load_cell_info=False,
-    load_gene_info=False,
-    only_get_cells=False,
-):
+    top_dir: str,
+    data_dir: str = "depmap/data",
+    load_cell_info: bool = False,
+    load_gene_info: bool = False,
+    only_get_cells: bool = False,
+) -> List[pd.DataFrame]:
     """
     Load Cancer Dependency Map viability data
 
@@ -137,7 +142,7 @@ def load_depmap(
 
     # Create path to DepMap data
     depmap_dir = pathlib.Path(top_dir, data_dir)
-    depmap_filename = FILENAMES["depmap"]["viability"]
+    depmap_filename = RESOURCE_FILENAMES["depmap"]["viability"]
 
     depmap_file = pathlib.Path(depmap_dir, depmap_filename)
 
@@ -146,7 +151,7 @@ def load_depmap(
     depmap_return_packet.append(pd.read_csv(depmap_file))
 
     if load_cell_info:
-        depmap_cell_filename = FILENAMES["depmap"]["celllines"]
+        depmap_cell_filename = RESOURCE_FILENAMES["depmap"]["celllines"]
         depmap_cell_file = pathlib.Path(depmap_dir, depmap_cell_filename)
 
         depmap_cell_df = pd.read_csv(depmap_cell_file)
@@ -166,7 +171,7 @@ def load_depmap(
         depmap_return_packet.append(depmap_cell_df)
 
     if load_gene_info:
-        depmap_gene_filename = FILENAMES["depmap"]["genes"]
+        depmap_gene_filename = RESOURCE_FILENAMES["depmap"]["genes"]
         depmap_gene_file = pathlib.Path(depmap_dir, depmap_gene_filename)
 
         depmap_return_packet.append(pd.read_csv(depmap_gene_file, sep="\t"))
@@ -194,13 +199,13 @@ def load_depmap(
 
 
 def load_prism(
-    top_dir,
-    data_dir="prism/data",
-    secondary_screen=False,
-    load_cell_info=False,
-    load_treatment_info=False,
-    only_get_cells=False,
-):
+    top_dir: str,
+    data_dir: str = "prism/data",
+    secondary_screen: bool = False,
+    load_cell_info: bool = False,
+    load_treatment_info: bool = False,
+    only_get_cells: bool = False,
+) -> List[pd.DataFrame]:
     """
     Load PRISM data
 
@@ -232,7 +237,7 @@ def load_prism(
 
     # Create path to DepMap data
     prism_dir = pathlib.Path(top_dir, data_dir)
-    prism_dict = FILENAMES["prism"]
+    prism_dict = RESOURCE_FILENAMES["prism"]
 
     if secondary_screen:
         screen_key = "secondary_screen"
@@ -312,8 +317,11 @@ def load_prism(
 
 
 def load_nci60(
-    top_dir, data_dir="nci60/data", load_treatment_info=False, only_get_cells=False
-):
+    top_dir: str,
+    data_dir: str = "nci60/data",
+    load_treatment_info: bool = False,
+    only_get_cells: bool = False,
+) -> List[pd.DataFrame]:
     """
     Load NCI-60 viability data
 
@@ -334,7 +342,7 @@ def load_nci60(
     """
     # Create path to CCLE data
     nci60_dir = pathlib.Path(top_dir, data_dir)
-    nci60_filename = FILENAMES["nci60"]["viability"]
+    nci60_filename = RESOURCE_FILENAMES["nci60"]["viability"]
 
     nci60_filename = pathlib.Path(nci60_dir, nci60_filename)
 
@@ -359,7 +367,7 @@ def load_nci60(
     nci_60_return_packet.append(nci60_df)
 
     if load_treatment_info:
-        nci60_treatment_filename = FILENAMES["nci60"]["treatments"]
+        nci60_treatment_filename = RESOURCE_FILENAMES["nci60"]["treatments"]
         nci60_treatment_filename = pathlib.Path(nci60_dir, nci60_treatment_filename)
 
         nci_60_return_packet.append(
