@@ -135,10 +135,10 @@ def load_depmap(
     """
     # Certain conditions must be met for only_get_cells
     if only_get_cells:
-        assert load_cell_info, "load_cell_info must be True if only_get_cells is True"
-        assert (
-            not load_gene_info
-        ), "load_gene_info must be False if only_get_cells is True"
+        if not load_cell_info:
+            raise ValueError("load_cell_info must be True if only_get_cells is True")
+        if load_gene_info:
+            raise ValueError("load_gene_info must be False if only_get_cells is True")
 
     # Create path to DepMap data
     depmap_dir = pathlib.Path(top_dir, data_dir)
@@ -235,10 +235,10 @@ def load_prism(
     """
     # Certain conditions must be met for only_get_cells
     if only_get_cells:
-        assert load_cell_info, "load_cell_info must be True if only_get_cells is True"
-        assert (
-            not load_treatment_info
-        ), "load_treatment_info must be False if only_get_cells is True"
+        if not load_cell_info:
+            raise ValueError("load_cell_info must be True if only_get_cells is True")
+        if load_treatment_info:
+            raise ValueError("load_treatment_info must be False if only_get_cells is True")
 
     # Create path to DepMap data
     prism_dir = pathlib.Path(top_dir, data_dir)
