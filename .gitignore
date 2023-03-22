@@ -1,4 +1,6 @@
 .DS_Store
 .ipynb_checkpoints/
 __pycache__/
-nci60/data/  # ignored because very large
+
+# ignored because very large
+nci60/data/
