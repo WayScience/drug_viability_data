@@ -5,7 +5,7 @@ Loading data helper functions
 import pathlib
 import pandas as pd
 
-from typing import List
+from typing import List, Union
 
 from .data_utils import process_tissue_ccle_column, process_missing_tissues
 
@@ -112,7 +112,7 @@ def load_depmap(
     load_cell_info: bool = False,
     load_gene_info: bool = False,
     only_get_cells: bool = False,
-) -> List[pd.DataFrame]:
+) -> Union[List[pd.DataFrame], pd.DataFrame]:
     """
     Load Cancer Dependency Map viability data
 
@@ -327,7 +327,7 @@ def load_nci60(
     data_dir: str = "nci60/data",
     load_treatment_info: bool = False,
     only_get_cells: bool = False,
-) -> List[pd.DataFrame]:
+) -> Union[List[pd.DataFrame], pd.DataFrame]:
     """
     Load NCI-60 viability data
 
