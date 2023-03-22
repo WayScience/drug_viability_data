@@ -210,7 +210,7 @@ def load_prism(
     load_cell_info: bool = False,
     load_treatment_info: bool = False,
     only_get_cells: bool = False,
-) -> List[pd.DataFrame]:
+) -> Union[List[pd.DataFrame], pd.DataFrame]:
     """
     Load PRISM data
 
