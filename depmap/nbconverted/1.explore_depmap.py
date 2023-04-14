@@ -7,15 +7,13 @@
 
 
 import pathlib
-import pandas as pd
-
 import sys
 
 sys.path.append("../")
 from utils import load_utils
 
 
-# In[8]:
+# In[2]:
 
 
 # Load depmap data

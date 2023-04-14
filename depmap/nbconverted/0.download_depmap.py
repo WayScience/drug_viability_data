@@ -14,10 +14,9 @@
 
 
 import pathlib
-import urllib
-import pandas as pd
-
 import sys
+
+import pandas as pd
 
 sys.path.append("../")
 from utils import download_utils, load_utils
