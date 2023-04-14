@@ -6,13 +6,16 @@
 # https://wiki.nci.nih.gov/display/NCIDTPdata/NCI-60+Growth+Inhibition+Data
 # 
 # 71 Cell Lines treated with 57,000 compounds
+# 
+# The notebook downloads two files:
+# 
+# 1. Dose response data (April 2023 release)
+# 2. Chemical name dictionary
 
 # In[1]:
 
 
 import pathlib
-import pandas as pd
-
 import sys
 
 sys.path.append("../")
@@ -40,9 +43,9 @@ nci_url = "https://wiki.nci.nih.gov/download/attachments/"
 # Download the dose response data
 attachment_id = "147193864"
 attachment_name = "DOSERESP.zip"
-version = "6"
-modification_date = "1672801037000"
-api = "v2"
+data_version = "7"  # April 2023
+modification_date = "1680574847000"
+api_version = "v2"
 output_file = pathlib.Path(output_dir, attachment_name)
 
 download_utils.download_nci60(
@@ -50,9 +53,9 @@ download_utils.download_nci60(
     base_url=nci_url,
     attachment_id=attachment_id,
     attachment_name=attachment_name,
-    version=version,
+    data_version=data_version,
     modification_date=modification_date,
-    api=api,
+    api_version=api_version,
     extract_zip=True,
 )
 
@@ -62,10 +65,12 @@ download_utils.download_nci60(
 
 # Download the chemical dictionary
 attachment_id = "155844992"
-attachment_name = "chemnames_Aug2013.zip"  # Note, not actually a zip file
-version = "1"
+
+# Note, this is a text file, not actually a zip file
+attachment_name = "chemnames_Aug2013.zip"
+data_version = "1"
 modification_date = "1378214926000"
-api = "v2"
+api_version = "v2"
 output_file = pathlib.Path(output_dir, attachment_name)
 
 download_utils.download_nci60(
@@ -73,9 +78,9 @@ download_utils.download_nci60(
     base_url=nci_url,
     attachment_id=attachment_id,
     attachment_name=attachment_name,
-    version=version,
+    data_version=data_version,
     modification_date=modification_date,
-    api=api,
+    api_version=api_version,
     extract_zip=False,
 )
 

@@ -89,9 +89,9 @@ def download_nci60(
     base_url: str,
     attachment_id: str,
     attachment_name: str,
-    version: str = "6",
+    data_version: str = "6",
     modification_date: str = "1672801037000",
-    api: str = "v2",
+    api_version: str = "v2",
     extract_zip: bool = False,
     chunk_size: int = 1024,
 ) -> pathlib.Path:
@@ -108,11 +108,11 @@ def download_nci60(
         the unique file identifier
     attachment_name: str
         the name of the file attachment
-    version: str, default = "6"
+    data_version: str, default = "6"
         the nci60 data version
     modification_date: str, default "1672801037000"
         the identifier indicating last modification time for version control
-    api: str, default = "v2"
+    api_version: str, default = "v2"
         the version of the API used to download the file
     extract_zip, bool, default = False
         whether or not to extract the zip file
@@ -124,7 +124,7 @@ def download_nci60(
         The output file name
 
     """
-    request_string = f"{base_url}/{attachment_id}/{attachment_name}?version={version}&modificationDate={modification_date}&api={api}"
+    request_string = f"{base_url}/{attachment_id}/{attachment_name}?version={data_version}&modificationDate={modification_date}&api={api_version}"
 
     request_streamer = requests.get(request_string, stream=True)
     with open(output_file, "wb") as output_file_writer:
