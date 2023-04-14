@@ -10,3 +10,6 @@ dependencies:
   - conda-forge::ipykernel
   - conda-forge::nb_conda_kernels
   - conda-forge::jupyter_contrib_nbextensions
+  - conda-forge::jupyterlab_code_formatter=<1.5.3
+  - conda-forge::isort=<5.12.0
+  - conda-forge::black=<23.1.0
